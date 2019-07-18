@@ -1,0 +1,31 @@
+<form>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row" *ngFor="let item of parametro">
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" [(ngModel)]="item.mi" min="0" placeholder="Monto Inicial" [ngModelOptions]="{standalone: true}" disabled>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" [(ngModel)]="item.mf" min="0" placeholder="Monto Final" [ngModelOptions]="{standalone: true}" disabled>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label>Tipo</mat-label>
+            <mat-select [(ngModel)]="item.type" [ngModelOptions]="{standalone: true}" disabled>
+              <mat-option *ngFor="let type of tipo" [value]="type.value">{{type.viewValue}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}" min="0" placeholder="Valor" disabled>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

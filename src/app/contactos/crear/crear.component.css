@@ -1,0 +1,5 @@
+.alert, .alert.alert-default {
+  background-color: #c5c5c5;
+  color: #ffffff;
+  font-weight: bold;
+}

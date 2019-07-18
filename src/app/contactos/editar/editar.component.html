@@ -1,0 +1,43 @@
+<form>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row" *ngFor="let item of parametro; let i = index;">
+        <div class="col-md-2">
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" [(ngModel)]="item.mi" min="0" placeholder="Monto Inicial" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" [(ngModel)]="item.mf" min="0" placeholder="Monto Final" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label>Tipo</mat-label>
+            <mat-select [(ngModel)]="item.type" [ngModelOptions]="{standalone: true}">
+              <mat-option *ngFor="let type of tipo" [value]="type.value">{{type.viewValue}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width">
+            <input matInput type="number" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}" min="0" placeholder="Valor">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <button mat-raised-button matTooltip="Quitar Rango" type="button" class="btn btn-fab btn-sm btn-round btn-danger pull-left" (click)="quitarParametro(i)">
+            <i class="material-icons">clear</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button mat-raised-button matTooltip="Agregar" type="button" class="btn btn-fab btn-round btn-warning pull-left" (click)="agregarParametro()">
+    <i class="material-icons">add</i>
+  </button>
+  <button mat-raised-button matTooltip="Guardar" type="button" (click)="guardarCambios(parametro)" class="btn btn-fab btn-round btn-success pull-right">
+      <i class="material-icons" >save</i>
+  </button>
+
+</form>

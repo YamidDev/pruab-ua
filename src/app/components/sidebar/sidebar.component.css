@@ -1,0 +1,43 @@
+.sidebar-background-color{
+  background-color:blue;
+}
+.logo2{
+  cursor: pointer;
+}
+
+.logo-image {
+  width: 15% !important;
+}
+
+a.dropdown-item:hover {
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgb(238, 238, 238);
+}
+
+.nav .nav-item {
+  position: relative;
+}
+
+ul > li.link-active a > span > i{
+  color: #fff;
+}
+ul > li.link-active a > span > p{
+  color: #fff;
+}
+
+li.link-active {
+  margin: 0 15px;
+  background-color: #1a1248  !important;
+  border-radius: 0.2rem;
+  border-color: #1a1248 ;
+}
+
+li.link-active a > p {
+  color: #fff;
+}
+li.link-active a > i{
+  color: #fff;
+}
+
+.navbar.bg-dark {
+  color: #3d3d3d !important;
+}

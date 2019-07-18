@@ -1,0 +1,115 @@
+<div *ngIf="showSpinner">
+	<ngx-spinner bdOpacity=0.9 bdColor="#333" size="large" color="#fff" type="ball-clip-rotate-multiple"
+		[fullScreen]="false">
+		<p style="color: white"> cargando... </p>
+	</ngx-spinner>
+</div>
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="alert alert-default" *ngIf="dataContactos?.length == 0">
+					<button aria-label="Close" class="close mat-button" data-dismiss="alert" mat-button=""
+						type="button">
+						<div class="mat-button-ripple mat-ripple" matripple=""></div>
+						<div class="mat-button-focus-overlay"></div>
+					</button>
+					<span><b> Info - </b> !No hay contactos para mostrar</span>
+				</div>
+				<div class="card">
+					<div class="card-header card-header-danger">
+						<div class="row">
+							<div class="col-sm-6">
+								<h4 class="card-title">Contactos</h4>
+								<p class="card-category">{{titulo}} <span class="badge badge-pill badge-primary"
+										style="font-size: 14px;">{{nombre}}</span></p>
+							</div>
+							<div class="col-sm-6">
+								<div class="floating animated bounceInRight text-right">
+									<button class="btn btn-success btn-fab btn-round"
+										style="background:#fff !important;" (click)="cambiarEstado('crear');"
+										*ngIf="estado =='contactos'" matTooltip="Agregar Tributo"
+										matTooltip="Crear Contacto">
+										<i class="material-icons" style="color: #63d463">add</i>
+										<div class="ripple-container"></div>
+									</button>
+									<button class="btn btn-success btn-fab" style="background:#6387d4 !important;"
+										(click)="cambiarEstado('tributos'); listarTributos(); cambiarTitulo('Listado Tributos')"
+										*ngIf="estado=='crear' || estado=='editar' || estado=='detail'"
+										matTooltip="Volver" matTooltipClass="example-tooltip-red">
+										<i class="material-icons">keyboard_arrow_left</i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<!-- <tributo-crear *ngIf="estado == 'crear'" (listarContactos)="listarContactos()"
+							(titulo)="cambiarTitulo($event)" (estado)="cambiarEstado($event)" [@enterAnimation]>
+						</tributo-crear>
+						<tributo-detail *ngIf="estado == 'detail'" [contacto]="dataContact" (titulo)="setTitulo($event)">
+						</tributo-detail>
+						<tributo-editar *ngIf="estado == 'editar'" [contacto]="dataTributo" (titulo)="setTitulo($event)"
+							(estado)="cambiarEstado($event)" (listarContactos)="listarTributos()" [@enterAnimation]>
+						</tributo-editar> -->
+						<div class="table-responsive" *ngIf="estado == 'contactos'" [@enterAnimation]>
+							<table class="table" *ngIf="dataContactos?.length > 0">
+								<thead class="text-thead">
+									<th>
+										#
+									</th>
+									<th>
+										Nombres
+									</th>
+									<th>Apellidos</th>
+									<th>Cedula</th>
+									<th>edad</th>
+									<th>Nacimiento</th>
+									<th>Telefono</th>
+									<th>Direccion</th>
+									<th>
+										Acciones
+									</th>
+								</thead>
+								<tbody>
+									<tr
+										*ngFor="let contacto of dataContactos | paginate: {itemsPerPage: 5, currentPage: pageNow}; let i = index;">
+										<td>{{i+1}}</td>
+										<td>{{contacto.nombres}}</td>
+										<td>{{contacto.apellidos}}</td>
+										<td>{{contacto.cedula}}</td>
+										<td>{{contacto.edad}}</td>
+										<td>{{contacto.fechaNac}}</td>
+										<td>{{contacto.telefono}}</td>
+										<td>{{contacto.direccion}}</td>
+										<td>
+											<button class="btn btn-round btn-fab btn-sm"
+												style="background:#f0a055 !important;" matTooltip="Editar Contacto"
+												(click)="cambiarEstado('editar'); setDataContacto(contacto)"
+												*ngIf="estado!='editar'">
+												<i class="material-icons">create</i>
+											</button>
+											<button class="btn btn-round btn-fab btn-sm"
+												style="background:#55b7f0 !important;" matTooltip="Ver Detalle"
+												(click)="cambiarEstado('detail'); setDataContacto(tributo)">
+												<i class="material-icons">visibility</i>
+											</button>
+											<button class="btn btn-danger btn-fab btn-round btn-sm"
+												matTooltip="Eliminar" (click)="eliminarTributo(contacto.id)">
+												<i class="material-icons">delete</i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<pagination-controls *ngIf="dataTr?.length >= 5" (pageChange)="pageNow = $event"
+								responsive="true" previousLabel="Ant" nextLabel="Sgte"
+								screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page">
+							</pagination-controls>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row logo my-5 animated fadeInDown">
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto my-5 animated fadeInUp">
+      <form class="form" method="post">
+        <div class="card card-login">
+          <div class="card-header card-header-rose text-center">
+            <h4 class="card-title">{{title}}</h4>
+          </div>
+          <div class="card-body my-2 ">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="material-icons">face</i>
+                </span>
+              </div>
+              <input class="form-control" [(ngModel)]="usuario.username" id="username" name="username" placeholder="#nit / Usuario" type="text" autofocus required>
+            </div>
+            <span class="bmd-form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">lock_outline</i>
+                  </span>
+                </div>
+                <input class="form-control" [(ngModel)]="usuario.password" name="password" id="password" placeholder="Contraseña" type="password" autocomplete="false" required>
+              </div>
+            </span>
+          </div>
+          <div class="card-footer justify-content-center">
+            <input (click)="login()" type="submit" class="btn btn-round btn-rose btn-block " value="Iniciar">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

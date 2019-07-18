@@ -1,0 +1,31 @@
+.logo {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.logo1{
+  width: 17%;
+  margin-bottom: -10%;
+}
+
+.card .card-header-rose .card-icon,
+.card .card-header-rose .card-text,
+.card .card-header-rose:not(.card-header-icon):not(.card-header-text),
+.card.bg-danger,
+.card.card-rotate.bg-danger .front,
+.card.card-rotate.bg-danger .back {
+  background: linear-gradient(60deg, #3e3765, #1a1248) !important;
+}
+
+.card .card-header-rose .card-icon,
+.card .card-header-rose:not(.card-header-icon):not(.card-header-text),
+.card .card-header-rose .card-text {
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgb(61, 54, 100) !important;
+}
+
+.mat-button.btn.btn-rose, .mat-raised-button.btn.btn-rose, .mat-raised-button.btn:not([class*=mat-elevation-z]).btn-rose, .btn.btn-rose {
+  color: #fff;
+  background-color: #393261;
+  border-color: #393261;
+  box-shadow: 0 2px 2px 0 rgb(189, 187, 199), 0 3px 1px -2px rgb(159, 157, 175), 0 1px 5px 0 rgb(173, 171, 186);
+}

@@ -1,0 +1,8 @@
+.fondo {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background: url('/assets/img/tributo_background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
