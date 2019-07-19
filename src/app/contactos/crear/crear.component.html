@@ -1,38 +1,70 @@
-<div class="alert alert-default" *ngIf="dataTributos?.length == 0">
-  <button aria-label="Close" class="close mat-button" data-dismiss="alert" mat-button="" type="button">
-    <div class="mat-button-ripple mat-ripple" matripple=""></div>
-    <div class="mat-button-focus-overlay"></div>
-  </button>
-  <span><b> Info - </b> !No hay Tributos para configurar</span>
+<div class="col-md-10 offset-md-1">
+  <div class="card">
+    <div class="card-header card-header-rose card-header-icon">
+      <div class="card-icon">
+        <i class="material-icons">contacts</i>
+      </div>
+      <h4 class="card-title">Datos del Contacto</h4>
+    </div>
+    <div class="card-body ">
+      <form class="form">
+        <div class="row">
+          <div class="form-group mx-sm-3 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombres</mat-label>
+              <input [(ngModel)]="nombres" name="nombres" matInput placeholder="Nombres">
+              <mat-icon matSuffix>account_box</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="form-group mx-sm-3 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Apellidos</mat-label>
+              <input [(ngModel)]="apellidos" name="apellidos" matInput placeholder="Apellidos">
+              <mat-icon matSuffix>account_box</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="form-group mx-sm-3 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Cedula</mat-label>
+              <input [(ngModel)]="cedula" name="cedula" matInput placeholder="Cedula">
+              <mat-icon matSuffix>credit_card</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group mx-sm-3 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Direccion</mat-label>
+              <input [(ngModel)]="direccion" name="direccion" matInput placeholder="Direccion">
+              <mat-icon matSuffix>add_location</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="form-group mx-sm-3 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Elegir Fecha</mat-label>
+              <input matInput [(ngModel)]="fechaNac" name="fechaNac" [matDatepicker]="picker" placeholder="Elegir Fecha">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="form-group mx-sm-3 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Telefono</mat-label>
+              <input [(ngModel)]="telefono" matInput name="telefono" placeholder="Telefono">
+              <mat-icon matSuffix>contact_phone</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer ">
+      <div class="row">
+        <div class="col-md-9">
+          <button class="btn btn-fill btn-success mat-raised-button" mat-raised-button="" type="submit" (click)="guardarCambios()">
+            <span class="mat-button-wrapper">Guardar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="table-responsive">
-  <table class="table"  *ngIf="dataTributos?.length > 0">
-    <thead class="text-thead">
-      <th>#</th>
-      <th>Nombre</th>
-      <th>Acciones</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tributo of dataTributos | paginate: {itemsPerPage: 5, currentPage: pageNow}; let i = index;" >
-        <td>{{i+1}}</td>
-        <td>{{tributo.nombre}}</td>
-        <td>
-        <button class="btn btn-success btn-fab btn-round" type="button"  (click)="agregarTributo(tributo)">
-          <i class="material-icons">add</i>
-        </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <pagination-controls
-    *ngIf="dataTributos?.length >= 5"
-    (pageChange)="pageNow = $event"
-    responsive="true"
-    previousLabel="Ant"
-    nextLabel="Sgte"
-    screenReaderPaginationLabel="Pagination"
-    screenReaderPageLabel="page"
-  >
-  </pagination-controls>
-</div>
-

@@ -3,11 +3,13 @@ import { ApiRestService } from 'app/api-rest.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-contactos',
   templateUrl: './contactos.component.html',
   styleUrls: ['./contactos.component.css'],
+  providers: [DatePipe],
   animations: [
     trigger(
       'enterAnimation', [
@@ -34,7 +36,7 @@ export class ContactosComponent implements OnInit, AfterViewInit, AfterContentCh
   estado: any = 'contactos';
   nombreContacto: any;
   pageNow = 1;
-  constructor(private servicio: ApiRestService, private spinner: NgxSpinnerService) { }
+  constructor(private servicio: ApiRestService, private spinner: NgxSpinnerService, public datePipe: DatePipe) { }
   ngAfterViewInit() { }
   ngAfterContentChecked() {
     this.spinner.show();
@@ -47,6 +49,10 @@ export class ContactosComponent implements OnInit, AfterViewInit, AfterContentCh
     this.listarContactos();
   }
 
+  public getDate(date: any): string {
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
+  }
+
   cambiarEstado(arg) {
     this.estado = arg;
     this.titulo = 'Listado de Contactos';
@@ -57,6 +63,7 @@ export class ContactosComponent implements OnInit, AfterViewInit, AfterContentCh
   }
 
   setTitulo(data: any) {
+    console.log(data);
     this.titulo = data.titulo;
     this.nombre = data.nombre;
   }
@@ -69,7 +76,6 @@ export class ContactosComponent implements OnInit, AfterViewInit, AfterContentCh
   listarContactos() {
     this.servicio.get(`/contactos/list`).subscribe(
       result => {
-        console.log(result);
         this.dataContactos = result;
         this.spinner.hide();
         this.showSpinner = false;
@@ -98,6 +104,7 @@ export class ContactosComponent implements OnInit, AfterViewInit, AfterContentCh
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
+        console.log(id);
         this.servicio.delete(`/contacto/${id}`).subscribe(
           (reponse) => {
             swalWithBootstrapButtons.fire('Eliminado!', 'Contacto eliminado con éxito', 'success');

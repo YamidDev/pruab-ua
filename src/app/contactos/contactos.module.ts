@@ -4,7 +4,8 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatRippleModule, MatFormFieldModule, MatTooltipModule,
-  MatSelectModule } from '@angular/material';
+  MatSelectModule, MatIconModule, MatNativeDateModule } from '@angular/material';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ContactosComponent } from './contactos.component';
 import { CrearComponent } from './crear/crear.component';
@@ -26,7 +27,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatTooltipModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 
   declarations: [
@@ -45,6 +49,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatTooltipModule,
     CrearComponent,
     EditarComponent
+  ],
+  providers: [
+    MatDatepickerModule
   ]
 })
 export class TributoModule { }

@@ -1,43 +1,70 @@
-<form>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="row" *ngFor="let item of parametro; let i = index;">
-        <div class="col-md-2">
-          <mat-form-field class="example-full-width">
-            <input matInput type="number" [(ngModel)]="item.mi" min="0" placeholder="Monto Inicial" [ngModelOptions]="{standalone: true}">
-          </mat-form-field>
+<div class="col-md-10 offset-md-1">
+    <div class="card">
+      <div class="card-header card-header-rose card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">contacts</i>
         </div>
-        <div class="col-md-2">
-          <mat-form-field class="example-full-width">
-            <input matInput type="number" [(ngModel)]="item.mf" min="0" placeholder="Monto Final" [ngModelOptions]="{standalone: true}">
-          </mat-form-field>
-        </div>
-        <div class="col-md-3">
-          <mat-form-field>
-            <mat-label>Tipo</mat-label>
-            <mat-select [(ngModel)]="item.type" [ngModelOptions]="{standalone: true}">
-              <mat-option *ngFor="let type of tipo" [value]="type.value">{{type.viewValue}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-md-3">
-          <mat-form-field class="example-full-width">
-            <input matInput type="number" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}" min="0" placeholder="Valor">
-          </mat-form-field>
-        </div>
-        <div class="col-md-2">
-          <button mat-raised-button matTooltip="Quitar Rango" type="button" class="btn btn-fab btn-sm btn-round btn-danger pull-left" (click)="quitarParametro(i)">
-            <i class="material-icons">clear</i>
-          </button>
+        <h4 class="card-title">Datos del Contacto</h4>
+      </div>
+      <div class="card-body ">
+        <form class="form">
+          <div class="row">
+            <div class="form-group mx-sm-3 mb-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Nombres</mat-label>
+                <input [(ngModel)]="contacto.nombres" name="nombres" matInput placeholder="Nombres">
+                <mat-icon matSuffix>account_box</mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="form-group mx-sm-3 mb-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Apellidos</mat-label>
+                <input [(ngModel)]="contacto.apellidos" name="apellidos" matInput placeholder="Apellidos">
+                <mat-icon matSuffix>account_box</mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="form-group mx-sm-3 mb-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Cedula</mat-label>
+                <input [(ngModel)]="contacto.cedula" name="cedula" matInput placeholder="Cedula">
+                <mat-icon matSuffix>credit_card</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group mx-sm-3 mb-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Direccion</mat-label>
+                <input [(ngModel)]="contacto.direccion" name="direccion" matInput placeholder="Direccion">
+                <mat-icon matSuffix>add_location</mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="form-group mx-sm-3 mb-3">
+              <mat-form-field appearance="outline">
+                  <mat-label>Elegir Fecha</mat-label>
+                <input matInput [(ngModel)]="contacto.fechaNac" name="fechaNac" [matDatepicker]="picker" placeholder="Elegir Fecha">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="form-group mx-sm-3 mb-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Telefono</mat-label>
+                <input [(ngModel)]="contacto.telefono" matInput name="telefono" placeholder="Telefono">
+                <mat-icon matSuffix>contact_phone</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer ">
+        <div class="row">
+          <div class="col-md-9">
+            <button class="btn btn-fill btn-success mat-raised-button" mat-raised-button="" type="submit" (click)="guardarCambios()">
+              <span class="mat-button-wrapper">Guardar</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <button mat-raised-button matTooltip="Agregar" type="button" class="btn btn-fab btn-round btn-warning pull-left" (click)="agregarParametro()">
-    <i class="material-icons">add</i>
-  </button>
-  <button mat-raised-button matTooltip="Guardar" type="button" (click)="guardarCambios(parametro)" class="btn btn-fab btn-round btn-success pull-right">
-      <i class="material-icons" >save</i>
-  </button>
-
-</form>

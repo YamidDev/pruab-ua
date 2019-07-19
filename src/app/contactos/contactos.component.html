@@ -21,7 +21,7 @@
 						<div class="row">
 							<div class="col-sm-6">
 								<h4 class="card-title">Contactos</h4>
-								<p class="card-category">{{titulo}} <span class="badge badge-pill badge-primary"
+								<p class="card-category">{{titulo}}  <span class="badge badge-pill badge-primary"
 										style="font-size: 14px;">{{nombre}}</span></p>
 							</div>
 							<div class="col-sm-6">
@@ -34,7 +34,7 @@
 										<div class="ripple-container"></div>
 									</button>
 									<button class="btn btn-success btn-fab" style="background:#6387d4 !important;"
-										(click)="cambiarEstado('tributos'); listarTributos(); cambiarTitulo('Listado Tributos')"
+										(click)="cambiarEstado('contactos'); listarContactos(); cambiarTitulo('Listado de Contactos')"
 										*ngIf="estado=='crear' || estado=='editar' || estado=='detail'"
 										matTooltip="Volver" matTooltipClass="example-tooltip-red">
 										<i class="material-icons">keyboard_arrow_left</i>
@@ -44,14 +44,14 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<!-- <tributo-crear *ngIf="estado == 'crear'" (listarContactos)="listarContactos()"
+						<contacto-crear *ngIf="estado == 'crear'" (listarContactos)="listarContactos()"
 							(titulo)="cambiarTitulo($event)" (estado)="cambiarEstado($event)" [@enterAnimation]>
-						</tributo-crear>
-						<tributo-detail *ngIf="estado == 'detail'" [contacto]="dataContact" (titulo)="setTitulo($event)">
-						</tributo-detail>
-						<tributo-editar *ngIf="estado == 'editar'" [contacto]="dataTributo" (titulo)="setTitulo($event)"
-							(estado)="cambiarEstado($event)" (listarContactos)="listarTributos()" [@enterAnimation]>
-						</tributo-editar> -->
+						</contacto-crear>
+						<contacto-detail *ngIf="estado == 'detail'" [contacto]="dataContact" (titulo)="setTitulo($event)">
+						</contacto-detail>
+						<contacto-editar *ngIf="estado == 'editar'" [contacto]="dataContact" (titulo)="setTitulo($event)"
+							(estado)="cambiarEstado($event)" (listarContactos)="listarContactos()" [@enterAnimation]>
+						</contacto-editar>
 						<div class="table-responsive" *ngIf="estado == 'contactos'" [@enterAnimation]>
 							<table class="table" *ngIf="dataContactos?.length > 0">
 								<thead class="text-thead">
@@ -72,14 +72,13 @@
 									</th>
 								</thead>
 								<tbody>
-									<tr
-										*ngFor="let contacto of dataContactos | paginate: {itemsPerPage: 5, currentPage: pageNow}; let i = index;">
+									<tr	*ngFor="let contacto of dataContactos | paginate: {itemsPerPage: 5, currentPage: pageNow}; let i = index;">
 										<td>{{i+1}}</td>
 										<td>{{contacto.nombres}}</td>
 										<td>{{contacto.apellidos}}</td>
 										<td>{{contacto.cedula}}</td>
 										<td>{{contacto.edad}}</td>
-										<td>{{contacto.fechaNac}}</td>
+										<td>{{ getDate(contacto.fechaNac)}}</td>
 										<td>{{contacto.telefono}}</td>
 										<td>{{contacto.direccion}}</td>
 										<td>
@@ -91,18 +90,18 @@
 											</button>
 											<button class="btn btn-round btn-fab btn-sm"
 												style="background:#55b7f0 !important;" matTooltip="Ver Detalle"
-												(click)="cambiarEstado('detail'); setDataContacto(tributo)">
+												(click)="cambiarEstado('detail'); setDataContacto(contacto)">
 												<i class="material-icons">visibility</i>
 											</button>
 											<button class="btn btn-danger btn-fab btn-round btn-sm"
-												matTooltip="Eliminar" (click)="eliminarTributo(contacto.id)">
+												matTooltip="Eliminar" (click)="eliminarContacto(contacto.id)">
 												<i class="material-icons">delete</i>
 											</button>
 										</td>
 									</tr>
 								</tbody>
 							</table>
-							<pagination-controls *ngIf="dataTr?.length >= 5" (pageChange)="pageNow = $event"
+							<pagination-controls *ngIf="dataContactos?.length >= 5" (pageChange)="pageNow = $event"
 								responsive="true" previousLabel="Ant" nextLabel="Sgte"
 								screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page">
 							</pagination-controls>

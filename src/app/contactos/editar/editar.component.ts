@@ -5,74 +5,57 @@ import { Router } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'tributo-editar',
+  selector: 'contacto-editar',
   templateUrl: './editar.component.html',
   styleUrls: ['./editar.component.css']
 })
 export class EditarComponent implements OnInit {
+  @Input() contacto: any;
   @Output() titulo = new EventEmitter();
   @Output() estado = new EventEmitter();
-  @Output() listarTributos = new EventEmitter();
-  texto = 'tributos';
-  text = 'Configurar Tributo';
-  @Input() tributo: any;
-  public parametro: any;
-  public nombre: any;
-
-  tipo = [
-    { value: 'f', viewValue: 'Fijo' },
-    { value: 'p', viewValue: 'Porcentaje' }
-  ];
-
+  @Output() listarContactos = new EventEmitter();
+  texto = 'contactos';
+  text = 'Editar Contacto';
+  fechaActual = new Date();
+  fechaNac;
   constructor(private service: ApiRestService, private router: Router) { }
 
   ngOnInit() {
-    this.parametro = JSON.parse(this.tributo.parametroTributo);
-    this.titulo.emit({titulo: this.text, nombre: this.tributo.idtributo.nombre});
+    this.titulo.emit({titulo: this.text, nombre: this.contacto.nombres});
   }
 
-  agregarParametro() {
-    this.parametro.push({
-      'mf': 0,
-      'mi': 0,
-      'type': '',
-      'value': 0,
-    });
+
+  setEdad(fechaActual, fechaNac) {
+    let milliseconds = fechaActual - fechaNac;
+    let seconds = milliseconds / 1000;
+    let minutes = seconds / 60;
+    let hours = minutes / 60;
+    let days = hours / 24;
+    let anios = days / 365;
+    console.log(Math.floor(anios));
+    return Math.floor(anios);
   }
 
-  quitarParametro(index) {
-    this.parametro.splice(index, 1);
-  }
 
-  guardarCambios(data) {
+  guardarCambios() {
+    this.fechaNac = new Date(this.contacto.fechaNac);
     let datos = {
-      'identidad': this.tributo.identidad.idEntidad,
-      'idtributo': this.tributo.idtributo.idTributo,
-      'idusuario': this.tributo.idusuario,
-      'estado': 'A',
-      'parametroTributo': JSON.stringify(data)
+      'cedula': this.contacto.cedula,
+      'nombres': this.contacto.nombres,
+      'apellidos': this.contacto.apellidos,
+      'fechaNac': this.contacto.fechaNac,
+      'telefono': this.contacto.telefono,
+      'edad': this.setEdad(this.fechaActual, this.fechaNac),
+      'direccion': this.contacto.direccion
     }
-
-    if (!this.validar(this.parametro, 'mi')) {
-      swal.fire('Error', 'Los Montos iniciales no pueden ser iguales', 'error');
-      return false;
-    }
-
-    if (!this.validar(this.parametro, 'mf')) {
-      swal.fire('Error', 'Los montos finales no pueden ser iguales', 'error');
-      return false;
-    }
-
-    this.service.put(`/entidadtributo/${this.tributo.idEntTributo}`, datos).subscribe(
+    this.service.put(`/contacto/${this.contacto.id}`, datos).subscribe(
       result => {
         swal.fire(
           'Genial!',
-          `Tributo Configurado con éxito`,
+          `Contacto Actualizado con éxito`,
           'success'
         );
-        this.parametro = result;
-        this.listarTributos.emit();
-        this.titulo.emit('Listado de Tributos');
+        this.listarContactos.emit();
         this.estado.emit(this.texto);
       },
       error => {
@@ -88,38 +71,4 @@ export class EditarComponent implements OnInit {
     )
   }
 
-  validar(arreglo: any[], type: any ) {
-    let elementos = [];
-    switch (type) {
-      case 'mi':
-        arreglo.forEach(element => {
-          elementos.push(element.mi);
-        });
-        break;
-      case 'mf':
-        arreglo.forEach(element => {
-          elementos.push(element.mf);
-        });
-        break;
-      default:
-        break;
-    }
-
-    let repetidos = [];
-    let temporal = [];
-
-    elementos.forEach((value, index) => {
-      temporal = Object.assign([], elementos);
-      temporal.splice(index, 1);
-      if (temporal.indexOf(value) !== -1 && repetidos.indexOf(value) === -1) {
-        repetidos.push(value);
-      }
-    });
-
-    if (repetidos.length === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }

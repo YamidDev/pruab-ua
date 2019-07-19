@@ -1,62 +1,67 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { ApiRestService } from '../../api-rest.service';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'tributo-crear',
+  selector: 'contacto-crear',
   templateUrl: './crear.component.html',
-  styleUrls: ['./crear.component.css']
+  styleUrls: ['./crear.component.css'],
+  providers: [DatePipe]
 })
+
 export class CrearComponent implements OnInit {
   @Output() titulo = new EventEmitter();
   @Output() estado = new EventEmitter();
-  @Output() listarTributos = new EventEmitter();
-  public usuario: any;
-  public dataTributos: any;
-  public idEntidad;
-  texto = 'tributos';
-  text = 'Agregar nuevo tributo';
+  @Output() listarContactos = new EventEmitter();
+  texto = 'contactos';
+  text = 'Crear nuevo contacto';
   public isChecked = false;
   pageNow = 1;
-
-  constructor(private service: ApiRestService, private router: Router) { }
+  edad: number;
+  cedula: string;
+  nombres: string;
+  apellidos: string;
+  fechaNac =  new Date();
+  telefono: string;
+  direccion: string;
+  fechaActual = new Date();
+  constructor(private service: ApiRestService, private router: Router) {  }
 
   ngOnInit() {
-    this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    this.idEntidad = this.usuario.entidad.idEntidad;
-    this.listarTributosOk();
     this.titulo.emit(this.text);
   }
 
-  listarTributosOk() {
-    this.service.get(`/tributos/disponibles/${this.idEntidad}`).subscribe(
-      result => {
-        this.dataTributos = result;
-      },
-      error => {
-        console.error(error.message);
-      }
-    )
+
+  setEdad(fechaActual, fechaNac) {
+    let milliseconds = fechaActual - fechaNac;
+    let seconds = milliseconds / 1000;
+    let minutes = seconds / 60;
+    let hours = minutes / 60;
+    let days = hours / 24;
+    let anios = days / 365;
+    return Math.floor(anios);
   }
 
-  agregarTributo(datos) {
+  guardarCambios() {
     const data = {
-      'identidad': this.idEntidad,
-      'idtributo': datos.idTributo,
-      'idusuario': this.usuario.id,
-      'estado': 'A',
-      'parametroTributo': '[{"mi": 0, "mf": 0, "type": "f", "value": 0}]'
+      'cedula': this.cedula,
+      'nombres': this.nombres,
+      'apellidos': this.apellidos,
+      'fechaNac': this.fechaNac,
+      'telefono': this.telefono,
+      'edad': this.setEdad(this.fechaActual, this.fechaNac),
+      'direccion': this.direccion
     }
-
-    this.service.post(`/entidadtributo/entidad/save`, data).subscribe(
+    this.service.post(`/contacto/new`, data).subscribe(
       result => {
         swal.fire(
           'Genial!',
-          `Tributo ${datos.nombre} agregado`,
+          `Contacto ${data.nombres} creado con éxito`,
           'success'
         );
-        this.listarTributos.emit();
+        this.listarContactos.emit();
         this.estado.emit(this.texto);
       },
       error => {
