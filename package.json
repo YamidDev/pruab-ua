@@ -51,7 +51,7 @@
     "ngx-pagination": "^4.0.0",
     "ngx-smart-modal": "^7.1.1",
     "ngx-spinner": "^7.1.4",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "perfect-scrollbar": "1.1.0",
     "popper.js": "1.14.3",
     "rxjs": "6.3.3",
